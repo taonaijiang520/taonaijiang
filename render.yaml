@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: taonaijiang
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python main.py"
+    envVars:
+      - key: BOT_TOKEN
+        value: 7544494246:AAFa5XauMronkG5xSpIXBHpLk7mmQzDZS-A
+      - key: OWNER_USERNAME
+        value: "@baby_520"
+      - key: WEBHOOK_DOMAIN
+        value: "https://taonaijiang.onrender.com"
