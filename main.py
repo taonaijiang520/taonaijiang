@@ -1,12 +1,16 @@
-print("TOKEN from env:", os.environ.get("TOKEN"))
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 import os
+import sys
 
 TOKEN = os.environ.get("TOKEN")
+if not TOKEN:
+    print("❌ 环境变量 TOKEN 未设置，Bot 无法启动")
+    sys.exit(1)
+
 CHINESE_URL = "https://t.me/setlanguage/zhcncc"
-BOT_USERNAME = "xlngchenBot"  # 桃奈酱机器人的用户名
-OWNER_USERNAME = "baby_520"   # 你的 Telegram 用户名
+BOT_USERNAME = "xlngchenBot"
+OWNER_USERNAME = "baby_520"
 
 WELCOME_TEXT = (
     "欧尼酱点开桃奈酱就是要换中文嘛？"
@@ -33,6 +37,7 @@ async def relay_to_owner(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("桃奈酱已经把你的话贴贴地送过去啦♡")
 
 if __name__ == "__main__":
+    print("✅ TOKEN 检测成功，Bot 启动中…")
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), relay_to_owner))
